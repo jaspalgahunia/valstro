@@ -1,0 +1,7 @@
+version: "3.8"
+
+services:
+    socketio-backend:
+        image: clonardo/socketio-backend
+        ports:
+            - 3000:3000
