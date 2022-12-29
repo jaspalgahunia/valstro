@@ -1,18 +1,8 @@
 {
-  "dependencies": {
-    "socket.io-client": "^4.5.4"
-  },
   "name": "valstro",
   "version": "1.0.0",
   "description": "Test Client to query a Websocket API",
   "main": "client.js",
-  "devDependencies": {},
-  "scripts": {
-    "prestart": "docker compose up -d && sleep 5",
-    "start": "node src/client.js",
-    "stop": "docker compose down",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/jaspalgahunia/valstro.git"
@@ -22,5 +12,24 @@
   "bugs": {
     "url": "https://github.com/jaspalgahunia/valstro/issues"
   },
-  "homepage": "https://github.com/jaspalgahunia/valstro#readme"
+  "homepage": "https://github.com/jaspalgahunia/valstro#readme",
+  "scripts": {
+    "env-up": "docker compose up -d && sleep 5",
+    "env-down": "docker compose down",
+    "prestart": "npm run env-up",
+    "start": "node src/client.js",
+    "poststart": "npm run env-down",
+    "pretest": "npm run env-up",
+    "test": "./node_modules/.bin/_mocha --config './mocha-config.js' --timeout 600000 --exit",
+    "posttest": "npm run env-down"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.5.4"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^10.2.0",
+    "mocha-logger": "^1.0.8"
+  }
 }
